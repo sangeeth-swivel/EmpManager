@@ -3,6 +3,15 @@ import { useForm } from "react-hook-form";
 import { Button, Form } from "react-bootstrap";
 
 const EmployeeForm = () => {
+
+  const initialValuesAdd = {
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    gender: "",
+  };
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState("");
 
