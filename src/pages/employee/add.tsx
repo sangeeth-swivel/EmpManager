@@ -8,11 +8,11 @@ function AddEmployee() {
       <Header />
       <Container>
         <Row>
-          <Col></Col>
-          <Col>
+          <Col class="col-xs-6 col-md-4"/>
+          <Col class="col-xs-6 col-md-4">
             <EmployeeForm />
           </Col>
-          <Col></Col>
+          <Col class="col-xs-6 col-md-4" />
         </Row>
       </Container>
     </>

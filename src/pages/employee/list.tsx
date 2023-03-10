@@ -1,9 +1,8 @@
 import AddEmployeeButton from "@/component/Button/AddButton";
 import Header from "@/component/Header/Header";
+import { GridView } from "@/component/List";
 import { useRouter } from "next/router";
 import { Container } from "react-bootstrap";
-import { BiUserPlus } from "react-icons/bi";
-import AddEmployee from "./add";
 
 function ListEmployee() {
   const route = useRouter();
@@ -16,8 +15,9 @@ function ListEmployee() {
     <>
       <Header />
       <main className="py-5">
-        <Container className="mx-auto flex justify-between py-5 border-b">
+        <Container>
           <AddEmployeeButton />
+          <GridView/>
         </Container>
       </main>
     </>

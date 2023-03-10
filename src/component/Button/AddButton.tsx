@@ -1,3 +1,4 @@
+import PRIMARYCOLOR from "@/styles/primaryColor";
 import { useRouter } from "next/router";
 import { Button } from "react-bootstrap";
 
@@ -9,7 +10,7 @@ const AddEmployeeButton = () => {
   };
   return (
     <>
-      <Button onClick={handeClick}>Add Employee</Button>
+      <Button onClick={handeClick} style={{ backgroundColor: PRIMARYCOLOR }}>Add Employee</Button>
     </>
   );
 };

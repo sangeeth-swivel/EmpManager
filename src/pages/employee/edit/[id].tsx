@@ -12,12 +12,12 @@ function EditEmployee() {
       <Header />
       {/* <div className="h1">EDIT EMPLOYEE FOR ID {employeeId} </div> */}
       <Container>
-        <Row >
-          <Col></Col>
-          <Col>
+        <Row>
+          <Col className="col-xs-6 col-md-4" />
+          <Col className="col-xs-6 col-md-4">
             <EmployeeForm />
           </Col>
-          <Col></Col>
+          <Col className="col-xs-6 col-md-4" />
         </Row>
       </Container>
     </>

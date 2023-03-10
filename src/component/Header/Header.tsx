@@ -1,3 +1,4 @@
+import PRIMARYCOLOR from "@/styles/primaryColor";
 import { useRouter } from "next/router";
 import { Container, Navbar } from "react-bootstrap";
 
@@ -10,9 +11,15 @@ const Header = () => {
 
   return (
     <>
-      <Navbar onClick={handeClick} bg="primary" expand="lg">
+      <Navbar
+        onClick={handeClick}
+        expand="lg"
+        style={{ backgroundColor: PRIMARYCOLOR }}
+      >
         <Container>
-          <Navbar.Brand >Employee Manager</Navbar.Brand>
+          <Navbar.Brand className="text-white font-weight-bold">
+            Employee Manager
+          </Navbar.Brand>
         </Container>
       </Navbar>
     </>
