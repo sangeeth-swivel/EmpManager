@@ -1,27 +1,12 @@
-import AddEmployeeButton from "@/component/Button/AddButton";
-import Header from "@/component/Header/Header";
-import { GridView } from "@/component/List";
-import { useRouter } from "next/router";
-import { Container } from "react-bootstrap";
+import NavBar from "@/components/atoms/NavBar/NavBar";
+import ListLayout from "@/components/templates/ListLayout/ListLayout";
 
 function ListEmployee() {
-  const route = useRouter();
-  const handeClick = () => {
-    console.log("Add Employee ");
-    route.push("/employee/add");
-  };
-
   return (
     <>
-      <Header />
-      <main className="py-5">
-        <Container>
-          <AddEmployeeButton />
-          <GridView/>
-        </Container>
-      </main>
+      <NavBar />
+      <ListLayout employees={[]}/>
     </>
   );
 }
-
 export default ListEmployee;

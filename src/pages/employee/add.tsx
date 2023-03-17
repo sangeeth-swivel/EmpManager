@@ -1,22 +1,12 @@
-import EmployeeForm from "@/component/Form/Form";
-import Header from "@/component/Header/Header";
-import { Col, Container, Row } from "react-bootstrap";
+import NavBar from "@/components/atoms/NavBar/NavBar";
+import FormLayout from "@/components/templates/FormLayout/FormLayout";
 
 function AddEmployee() {
   return (
     <>
-      <Header />
-      <Container>
-        <Row>
-          <Col class="col-xs-6 col-md-4"/>
-          <Col class="col-xs-6 col-md-4">
-            <EmployeeForm />
-          </Col>
-          <Col class="col-xs-6 col-md-4" />
-        </Row>
-      </Container>
+      <NavBar />
+      <FormLayout/>
     </>
   );
 }
-
 export default AddEmployee;
