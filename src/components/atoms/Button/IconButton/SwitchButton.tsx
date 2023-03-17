@@ -1,6 +1,6 @@
 import PRIMARYCOLOR from "@/styles/PrimaryColor";
 import { Button } from "react-bootstrap";
-import { IconButton} from "./IconButtonInterface";
+import { IconButton } from "./IconButtonInterface";
 
 const SwitchButton = ({ icon, onClick }: IconButton) => {
   return (

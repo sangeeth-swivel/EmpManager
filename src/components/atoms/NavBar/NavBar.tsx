@@ -1,5 +1,5 @@
 import PRIMARYCOLOR from "@/styles/PrimaryColor";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Container, Navbar } from "react-bootstrap";
 
 const NavBar = () => {
   return (
