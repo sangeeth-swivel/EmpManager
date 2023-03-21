@@ -1,4 +1,3 @@
-import PRIMARYCOLOR from "@/styles/PrimaryColor";
 import React from "react";
 import { Button } from "react-bootstrap";
 import { NavButtonProps } from "./NavButtonInterface";
@@ -9,7 +8,7 @@ const NavButton = ({ text, onClick }: NavButtonProps) => {
       <Button
         className="mx-2"
         onClick={onClick}
-        style={{ backgroundColor: PRIMARYCOLOR }}
+        style={{ backgroundColor: "#6100ed"  }}
       >
         <b>{text}</b>
       </Button>
