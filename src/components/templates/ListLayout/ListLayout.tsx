@@ -5,38 +5,13 @@ import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { IoReorderThree } from "react-icons/io5";
 import { BsFillGrid3X3GapFill } from "react-icons/bs";
-import CardView from "@/components/organisms/View/CardView";
+import CardView from "@/components/organisms/View/CardView/CardView";
 import ListView from "@/components/organisms/View/ListView";
 import { IListLayoutInterface } from "./ListInterface";
-import axios from "axios";
-import { IEmployee } from "@/interfaces";
-import NavBar from "@/components/atoms/NavBar/NavBar";
 
-function ListLayout({ employees }: IListLayoutInterface) {
-// function ListLayout() {
-  // function ListLayout() {
-
+function ListLayout({ data }: IListLayoutInterface) {
   const [gridView, setGridView] = useState(true);
-  // const [userData, setUserData] = useState<IEmployee[]>();
-
-  // async function getEmployeeList() {
-  //   const res = await axios.get<IEmployee[]>("https://gray-hilarious-puppy.cyclic.app/employee/list")
-  //   const data = await res.data
-  //   console.log(data)
-  //   return data
-  // }
-
-  // useEffect( () => {
-  //   async function getEmployee() {
-  //     try {
-  //     const result = await getEmployeeList()
-  //     setUserData(result)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }      
-  //   }
-  //   getEmployee()
-  // },[])
+  const [isModalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -55,8 +30,22 @@ function ListLayout({ employees }: IListLayoutInterface) {
             />
           </Col>
         </Row>
-        
-        <Row>{gridView ? <CardView employees={employees}/> : <ListView />}</Row>
+        {data?.map((data) => (
+          <Row>
+            {gridView ? (
+              <CardView
+                employees={[data]}
+                onClickDelete={() => setModalOpen(true)}
+                onClickEdit={() => router.push(`employee/edit/${data._id}`)}
+              />
+            ) : (
+              <ListView 
+              employees={[data]}
+              onClickDelete={() => setModalOpen(true)}
+              onClickEdit={() => router.push(`employee/edit/${data._id}`)}/>
+            )}
+          </Row>
+        ))}
       </Container>
     </>
   );

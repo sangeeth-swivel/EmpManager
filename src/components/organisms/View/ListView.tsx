@@ -1,7 +1,8 @@
 import TableEmployee from "@/components/molecules/Table/Table";
 import { Table } from "react-bootstrap";
+import { IACard } from "./CardView/CardViewInterface";
 
-const ListView = () => {
+const ListView = ({ employees, onClickDelete }: IACard) => {
   return (
     <>
       <Table striped bordered hover>
