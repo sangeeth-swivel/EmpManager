@@ -1,11 +1,9 @@
-import NavBar from "@/components/atoms/NavBar/NavBar";
-import FormLayout from "@/components/templates/FormLayout/FormLayout";
+import FormEmployee from "@/components/molecules/FormBody/Form";
 
 function EditEmployee() {
   return (
     <>
-      <NavBar />
-      <FormLayout/>
+      <FormEmployee edit={true} text={"SAVE"} />
     </>
   );
 }
