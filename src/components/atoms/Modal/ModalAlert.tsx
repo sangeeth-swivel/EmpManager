@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { IDeleteModal } from "./ModalAlertInterface";
 
-const ModalAlert = () => {
+const ModalAlert = ({
+  employee,
+  isOpen,
+  onClickClose,
+  onClickDelete,
+}: IDeleteModal) => {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -13,17 +19,17 @@ const ModalAlert = () => {
         Launch demo modal
       </Button>
 
-      <Modal show={show} onHide={handleClose}>
+      <Modal isOpen={isOpen} show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Delete Employee</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Modal body text goes here.</Modal.Body>
+        <Modal.Body>Are you sure you want to delete employee</Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="secondary" onClick={onClickClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="danger" onClick={onClickDelete}>
+            Delete
           </Button>
         </Modal.Footer>
       </Modal>

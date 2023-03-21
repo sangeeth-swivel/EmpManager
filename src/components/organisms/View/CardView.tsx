@@ -1,7 +1,10 @@
+import { IListLayoutInterface } from "@/components/templates/ListLayout/ListInterface";
+import { IEmployee } from "@/interfaces";
 import { Container, Row } from "react-bootstrap";
 import CardEmployee from "../../molecules/Card/Card";
 
-const CardView = () => {
+// function CardView(props:IEmployee[])  {
+  function CardView({ employees }: IListLayoutInterface)  {
     return (
       <>
       <Container>
