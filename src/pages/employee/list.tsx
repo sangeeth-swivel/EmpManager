@@ -10,7 +10,7 @@ const HomePage: NextPage = () => {
   if (statusFetching === "failed") {
     return <Alert variant="danger">{fetchEmployeeMessage}</Alert>;
   } else if (statusFetching === "success") {
-    return <ListLayout employees={content.employees} />;
+    return <ListLayout data={content.employees} />;
   } else {
     return <></>;
   }

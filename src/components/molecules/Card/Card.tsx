@@ -6,7 +6,6 @@ import { ICard } from "./CardInterface";
 import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
 
 const CardEmployee = ({
-  // children,
   photo,
   firstName,
   lastName,

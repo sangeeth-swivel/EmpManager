@@ -1,4 +1,4 @@
-import PRIMARYCOLOR from "@/styles/PrimaryColor";
+
 import { Button } from "react-bootstrap";
 import { IconButton } from "./IconButtonInterface";
 
@@ -6,9 +6,10 @@ const SwitchButton = ({ icon, onClick }: IconButton) => {
   return (
     <>
       <Button
-        className="rounded-circle"
+        className="rounded-circle "
         onClick={onClick}
-        style={{ backgroundColor: PRIMARYCOLOR }}
+        variant="primary"
+        style={{ backgroundColor: "#6100ed" }}
       >
         {icon}
       </Button>
