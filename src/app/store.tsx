@@ -16,33 +16,20 @@ import {
 
 import { IEmployee } from "@/interfaces";
 
-interface State {
-  employees: IEmployee[];
-  employee: IEmployee | null;
-  statusFetching: string;
-  statusDeleting: string;
-  statusUpdating: string;
-  statusAdding: string;
-  addEmployeeMessage: string;
-  updateEmployeeMessage: string;
-  fetchEmployeeMessage: string;
-  error: string;
-}
-
-const initialState: State = {
-  employees: [],
-  employee: null,
-  statusFetching: "idle",
-  statusDeleting: "idle",
-  statusUpdating: "idle",
-  statusAdding: "idle",
-  addEmployeeMessage: "",
-  updateEmployeeMessage: "",
-  fetchEmployeeMessage: "",
-  error: "",
-};
-
-// const initialState = {
+// interface State {
+//   employees: IEmployee[];
+//   employee: IEmployee | null;
+//   statusFetching: string;
+//   statusDeleting: string;
+//   statusUpdating: string;
+//   statusAdding: string;
+//   addEmployeeMessage: string;
+//   updateEmployeeMessage: string;
+//   fetchEmployeeMessage: string;
+//   error: string;
+// }
+//
+// const initialState: State = {
 //   employees: [],
 //   employee: null,
 //   statusFetching: "idle",
@@ -55,8 +42,21 @@ const initialState: State = {
 //   error: "",
 // };
 
+const initialState = {
+  employees: [],
+  employee: null,
+  statusFetching: "idle",
+  statusDeleting: "idle",
+  statusUpdating: "idle",
+  statusAdding: "idle",
+  addEmployeeMessage: "",
+  updateEmployeeMessage: "",
+  fetchEmployeeMessage: "",
+  error: "",
+};
+
 export const getAllEmployees = createAsyncThunk(
-  "employee/list",
+  "fetchEmployee/list",
   async (_obj, { rejectWithValue }) => {
     try {
       const response = await getAllEmployeesService();
@@ -135,15 +135,17 @@ export const employeeSlice = createSlice({
 
   //Hydrate state with wrapper
   extraReducers: (builder) => {
-    builder.addCase(HYDRATE, (state: any, action: any) => {
+    builder
+        .addCase(HYDRATE, (state: any, action: any) => {
       console.log("HYDRATE", state, action.payload);
       return {
         ...state,
         ...action.payload.employee,
       };
-    });
+          // });
+          })
 
-    builder
+    // builder
       //get employee
       .addCase(getAllEmployees.fulfilled, (state, action) => {
         state.employees = state.employees.concat(action.payload);
@@ -192,21 +194,34 @@ const makeStore = () =>
     reducer: {
       [employeeSlice.name]: employeeSlice.reducer,
     },
-    devTools: true,
+    // devTools: true,
   });
 
-export type AppStore = ReturnType<typeof makeStore>;
-export type AppState = ReturnType<AppStore["getState"]>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  AppState,
-  unknown,
-  Action
->;
+// export type AppStore = ReturnType<typeof makeStore>;
+// export type AppState = ReturnType<AppStore["getState"]>;
+// export type AppThunk<ReturnType = void> = ThunkAction<
+//   ReturnType,
+//   AppState,
+//   unknown,
+//   Action
+// >;
 
 //wrapper
-export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
+// export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
 
 // Selector
 export const selectEmployee = () => (state: AppState) =>
-  state?.[employeeSlice.name];
+    state?.[employeeSlice.name];
+
+export type AppStore = ReturnType<typeof makeStore>;
+
+export type AppState = ReturnType<AppStore["getState"]>;
+
+export type AppThunk<ReturnType = void> = ThunkAction<
+    ReturnType,
+    AppState,
+    unknown,
+    Action
+>;
+
+export const wrapper = createWrapper<AppStore>(makeStore);

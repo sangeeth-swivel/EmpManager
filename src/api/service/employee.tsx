@@ -8,7 +8,7 @@ const addEmployeeService = (employee: IEmployee) => {
 
 // router.get("/list", employees.findAllEmployee);
 const getAllEmployeesService = () => {
-  return axiosClient.get("/employee/list");
+  return axiosClient.get("https://gray-hilarious-puppy.cyclic.app/employee/list");
 };
 
 // router.get('/:empId', employees.findOneEmployee);
