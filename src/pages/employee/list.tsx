@@ -8,17 +8,17 @@ const HomePage: NextPage = () => {
   const content = useSelector(selectEmployee());
   const { statusFetching, fetchEmployeeMessage } = content;
 
-  if (statusFetching === "failed") {
-    return <Alert variant="danger">{fetchEmployeeMessage}</Alert>;
-  } else if (statusFetching === "success") {
-    return <ListLayout data={content.employees} />;
-  } else {
-    return <></>;
-  }
-  // return <>
-  // <ListLayout data={content.employees} />
-  // {console.log(content.fetchEmployeeMessage)}
-  // </>
+  // if (statusFetching === "failed") {
+  //   return <Alert variant="danger">{fetchEmployeeMessage}</Alert>;
+  // } else if (statusFetching === "success") {
+  //   return <ListLayout data={content.employees} />;
+  // } else {
+  //   return <></>;
+  // }
+  return <>
+  <ListLayout data={content.employees} />
+  {console.log(content.fetchEmployeeMessage)}
+  </>
 };
 
 // export const getServerSideProps = wrapper.getServerSideProps(
