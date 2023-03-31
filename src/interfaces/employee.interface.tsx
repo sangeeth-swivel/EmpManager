@@ -6,4 +6,5 @@ export interface IEmployee {
     gender: string;
     phone: string;
     photo?: string;
+    onClickDelete: void
   }

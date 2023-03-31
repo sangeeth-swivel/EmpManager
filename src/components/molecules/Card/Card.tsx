@@ -6,17 +6,23 @@ import { ICard } from "./CardInterface";
 import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
 import { IACard } from "@/components/organisms/View/CardView/CardViewInterface";
 import { useDispatch } from "react-redux";
+import { IEmployee } from "@/interfaces";
+import { setDeleteUserWithBtn } from "@/components/organisms/Shared/setDeleteUser";
 
-const CardEmployee = ({ employees, onClickDelete }: IACard) => {
+const CardView = ({ employees, onClickDelete }: IACard) => {
   const router = useRouter();
   const dispatch: any = useDispatch();
+
+  const onClickDeleteBtn = (employee: IEmployee) => {
+    setDeleteUserWithBtn(employee, dispatch);
+    onClickDelete(); 
+  };
 
   return (
     <>
       {employees.map((employee) => (
         <Card style={{ width: "18rem" }}>
           <Card.Img
-            // variant="top"
             src={employee.photo}
           />
           <Card.Body>
@@ -33,9 +39,9 @@ const CardEmployee = ({ employees, onClickDelete }: IACard) => {
                   color={"success"}
                 />
                 <ActionButton
-                  onClick={() => router.push("/employee/delete/:id")}
                   icon={<AiFillDelete />}
                   color={"danger"}
+                  onClick={() => onClickDeleteBtn(employee)}
                 />
               </Col>
             </Row>
@@ -46,4 +52,4 @@ const CardEmployee = ({ employees, onClickDelete }: IACard) => {
   );
 };
 
-export default CardEmployee;
+export default CardView;

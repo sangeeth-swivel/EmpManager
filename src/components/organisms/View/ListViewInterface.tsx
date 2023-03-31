@@ -4,5 +4,5 @@ export interface ILView {
   data : IEmployee[];
   gridView : boolean;
   // onClickEdit: () => void;
-  onClickDelete: () => void;
+  // onClickDelete: () => void;
 }

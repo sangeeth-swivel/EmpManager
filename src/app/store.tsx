@@ -18,6 +18,7 @@ import {
 import { IEmployee } from "@/interfaces";
 
 interface State {
+  delEmp: any;
   employees: IEmployee[];
   employee: IEmployee | null;
   statusFetching: string;
@@ -178,7 +179,7 @@ export const employeeSlice = createSlice({
   },
 });
 
-const makeStore = () =>
+export const makeStore = () =>
   configureStore({
     reducer: {
       [employeeSlice.name]: employeeSlice.reducer,
