@@ -5,8 +5,9 @@ import {
   createSlice,
   ThunkAction,
 } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
+
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
+
 import {
   addEmployeeService,
   deleteEmployeeService,
@@ -16,33 +17,20 @@ import {
 
 import { IEmployee } from "@/interfaces";
 
-// interface State {
-//   employees: IEmployee[];
-//   employee: IEmployee | null;
-//   statusFetching: string;
-//   statusDeleting: string;
-//   statusUpdating: string;
-//   statusAdding: string;
-//   addEmployeeMessage: string;
-//   updateEmployeeMessage: string;
-//   fetchEmployeeMessage: string;
-//   error: string;
-// }
-//
-// const initialState: State = {
-//   employees: [],
-//   employee: null,
-//   statusFetching: "idle",
-//   statusDeleting: "idle",
-//   statusUpdating: "idle",
-//   statusAdding: "idle",
-//   addEmployeeMessage: "",
-//   updateEmployeeMessage: "",
-//   fetchEmployeeMessage: "",
-//   error: "",
-// };
+interface State {
+  employees: IEmployee[];
+  employee: IEmployee | null;
+  statusFetching: string;
+  statusDeleting: string;
+  statusUpdating: string;
+  statusAdding: string;
+  addEmployeeMessage: string;
+  updateEmployeeMessage: string;
+  fetchEmployeeMessage: string;
+  error: string;
+}
 
-const initialState = {
+const initialState: State = {
   employees: [],
   employee: null,
   statusFetching: "idle",
@@ -55,40 +43,30 @@ const initialState = {
   error: "",
 };
 
-export const getAllEmployees = createAsyncThunk(
-  "fetchEmployee/list",
-  async (_obj, { rejectWithValue }) => {
-    try {
-      const response = await getAllEmployeesService();
-      if (response.data.employees) {
-        return response.data.employees;
-      } else {
-        return rejectWithValue("Sorry Something went wrong!");
-      }
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err);
-    }
+// createAsyncThunk function to fetch the employee list
+export const getAllEmployees = createAsyncThunk("employees/fetch", async () => {
+  try {
+    const response = await getAllEmployeesService();
+    return response.data;
+  } catch (err) {
+    console.log(err);
   }
-);
+});
 
+// createAsyncThunk function to add employee list
 export const addNewEmployee = createAsyncThunk(
   "employee/add",
-  async (employee: IEmployee, { rejectWithValue }) => {
+  async (employee: IEmployee) => {
     try {
       const res = await addEmployeeService(employee);
-      if (res.data.message === "success") {
-        return res.data;
-      } else {
-        return rejectWithValue("error");
-      }
-    } catch (err) {
-      console.log(err);
-      return rejectWithValue(err);
+      return res.data;
+    } catch (error) {
+      console.log(error);
     }
   }
 );
 
+// createAsyncThunk function to update employee list
 export const updateEmployee = createAsyncThunk(
   "employee/edit",
   async (employee: IEmployee, { rejectWithValue }) => {
@@ -107,6 +85,7 @@ export const updateEmployee = createAsyncThunk(
   }
 );
 
+// createAsyncThunk function to delete employee list
 export const setEmployeeToDelete =
   (employee: IEmployee): AppThunk =>
   async (dispatch) => {
@@ -136,25 +115,25 @@ export const employeeSlice = createSlice({
   //Hydrate state with wrapper
   extraReducers: (builder) => {
     builder
-        .addCase(HYDRATE, (state: any, action: any) => {
-      console.log("HYDRATE", state, action.payload);
-      return {
-        ...state,
-        ...action.payload.employee,
-      };
-          // });
-          })
+      .addCase(HYDRATE, (state: any, action: any) => {
+        console.log("HYDRATE", state, action.payload);
+        return {
+          ...state,
+          ...action.payload.employee,
+        };
+      })
 
-    // builder
-      //get employee
+      //get all employee
       .addCase(getAllEmployees.fulfilled, (state, action) => {
         state.employees = state.employees.concat(action.payload);
+        console.log(state);
         state.statusFetching = "success";
+        state.fetchEmployeeMessage = "fetch employee successfully!";
       })
-      .addCase(getAllEmployees.pending, (state, action) => {
+      .addCase(getAllEmployees.pending, (state) => {
         state.statusFetching = "loading";
       })
-      .addCase(getAllEmployees.rejected, (state, action) => {
+      .addCase(getAllEmployees.rejected, (state) => {
         state.statusFetching = "failed";
         state.fetchEmployeeMessage = "Sorry Something went wrong!";
       })
@@ -185,6 +164,17 @@ export const employeeSlice = createSlice({
         state.statusUpdating = "failed";
         state.updateEmployeeMessage =
           "Could not update please try again later!";
+      })
+
+      //delete employee
+      .addCase(deleteEmployee.fulfilled, (state, action) => {
+        state.statusDeleting = "success";
+      })
+      .addCase(deleteEmployee.pending, (state, action) => {
+        state.statusDeleting = "loading";
+      })
+      .addCase(deleteEmployee.rejected, (state, action) => {
+        state.statusDeleting = "failed";
       });
   },
 });
@@ -194,34 +184,23 @@ const makeStore = () =>
     reducer: {
       [employeeSlice.name]: employeeSlice.reducer,
     },
-    // devTools: true,
+    devTools: true,
   });
-
-// export type AppStore = ReturnType<typeof makeStore>;
-// export type AppState = ReturnType<AppStore["getState"]>;
-// export type AppThunk<ReturnType = void> = ThunkAction<
-//   ReturnType,
-//   AppState,
-//   unknown,
-//   Action
-// >;
-
-//wrapper
-// export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
 
 // Selector
 export const selectEmployee = () => (state: AppState) =>
-    state?.[employeeSlice.name];
+  state?.[employeeSlice.name];
 
 export type AppStore = ReturnType<typeof makeStore>;
 
 export type AppState = ReturnType<AppStore["getState"]>;
 
 export type AppThunk<ReturnType = void> = ThunkAction<
-    ReturnType,
-    AppState,
-    unknown,
-    Action
+  ReturnType,
+  AppState,
+  unknown,
+  Action
 >;
 
-export const wrapper = createWrapper<AppStore>(makeStore);
+//wrapper
+export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });

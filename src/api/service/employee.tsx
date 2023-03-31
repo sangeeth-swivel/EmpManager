@@ -1,27 +1,28 @@
 import { IEmployee } from "@/interfaces";
 import { axiosClient } from "../axiosClient";
 
-// router.post("/add", employees.addEmployee);
-const addEmployeeService = (employee: IEmployee) => {
-  return axiosClient.post("/employee/add", JSON.stringify(employee));
+// Add Employee Service
+const addEmployeeService = (employees: IEmployee) => {
+  return axiosClient.post("/employee/add", JSON.stringify(employees));
 };
 
-// router.get("/list", employees.findAllEmployee);
+// Get All Employees Service
 const getAllEmployeesService = () => {
-  return axiosClient.get("https://gray-hilarious-puppy.cyclic.app/employee/list");
+  console.log("get employee api connection");
+  return axiosClient.get("/employee/list");
 };
 
-// router.get('/:empId', employees.findOneEmployee);
+// Get Employee by Id Service
 const getEmployeeByIdService = (id?: string) => {
   return axiosClient.get(`/employee/${id}`);
 };
 
-// router.put('/edit/:empId', employees.updateEmployee);
+// Update Employee Service
 const updateEmployeeService = (employee: IEmployee) => {
   return axiosClient.post("/employee/edit", JSON.stringify(employee));
 };
 
-// router.delete('/delete/:empId', employees.deleteEmployee);
+// Delete Employee Service
 const deleteEmployeeService = (id: string) => {
   return axiosClient.get(`/employee/delete/${id}`);
 };
