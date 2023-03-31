@@ -1,15 +1,17 @@
 import ListLayout from "@/components/templates/ListLayout/ListLayout";
 import { useSelector } from "react-redux";
-import { getAllEmployees, selectEmployee, wrapper } from "@/app/store";
 import { NextPage } from "next";
 import { Alert } from "react-bootstrap";
+import { getAllEmployees, selectEmployee, wrapper } from "@/app/store";
 
 const HomePage: NextPage = () => {
   const content = useSelector(selectEmployee());
   const { statusFetching, fetchEmployeeMessage } = content;
+
   if (statusFetching === "failed") {
     return <Alert variant="danger">{fetchEmployeeMessage}</Alert>;
   } else if (statusFetching === "success") {
+    <Alert variant="success">{fetchEmployeeMessage}</Alert>
     return <ListLayout data={content.employees} />;
   } else {
     return <></>;

@@ -1,7 +1,8 @@
 import { IEmployee } from "@/interfaces";
 
-export interface IACard {
-  employees: IEmployee[];
+export interface ILView {
+  data : IEmployee[];
+  gridView : boolean;
   // onClickEdit: () => void;
   onClickDelete: () => void;
 }

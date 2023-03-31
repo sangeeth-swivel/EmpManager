@@ -8,6 +8,7 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import CardView from "@/components/organisms/View/CardView/CardView";
 import ListView from "@/components/organisms/View/ListView";
 import { IListLayoutInterface } from "./ListInterface";
+import ViewList from "@/components/molecules/View/ViewList";
 
 function ListLayout({ data }: IListLayoutInterface) {
   const [gridView, setGridView] = useState(true);
@@ -30,22 +31,10 @@ function ListLayout({ data }: IListLayoutInterface) {
             />
           </Col>
         </Row>
-        {data?.map((data) => (
-          <Row>
-            {gridView ? (
-              <CardView
-                employees={[data]}
-                onClickDelete={() => setModalOpen(true)}
-                onClickEdit={() => router.push(`employee/edit/${data._id}`)}
-              />
-            ) : (
-              <ListView 
-              employees={[data]}
-              onClickDelete={() => setModalOpen(true)}
-              onClickEdit={() => router.push(`employee/edit/${data._id}`)}/>
-            )}
-          </Row>
-        ))}
+        <ViewList data={data} 
+        onClickDelete={() => setModalOpen(true)}
+        gridView={gridView}
+        />
       </Container>
     </>
   );

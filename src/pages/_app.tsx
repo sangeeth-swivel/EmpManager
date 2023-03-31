@@ -1,7 +1,7 @@
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import NavBar from "@/components/atoms/NavBar/NavBar";
-import { Container } from "react-bootstrap";
+import { Container, ThemeProvider } from "react-bootstrap";
 import { wrapper } from "@/app/store";
 
 const App = ({ Component, pageProps }: AppProps) => {
@@ -18,7 +18,9 @@ const App = ({ Component, pageProps }: AppProps) => {
       />
       <NavBar />
       <Container className="py-2">
-        <Component {...pageProps} />
+        <ThemeProvider >
+          <Component {...pageProps} />
+        </ThemeProvider>
       </Container>
     </>
   );

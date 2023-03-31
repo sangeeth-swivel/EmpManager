@@ -1,33 +1,56 @@
 import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
-import router from "next/router";
+import { IACard } from "@/components/organisms/View/CardView/CardViewInterface";
+import Image from "next/image";
+import router, { useRouter } from "next/router";
+import { Table } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 
-const TableEmployee = () => {
+
+const TableEmployee = ({ employees, onClickDelete }: IACard) => {
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  // const onClickDeleteBtn = (employee: IEmployee) => {
+  //   setDeleteUserWithBtn(employee, dispatch);
+  //   onClickDelete();
+  // };
+
   return (
     <>
-        <tbody>
-          <tr>
-            <td>photo</td>
-            <td>name</td>
-            <td>name</td>
-            <td>email</td>
-            <td>phone</td>
-            <td>gender</td>
+      <tbody >
+        {employees.map((employee) => (
+          <tr key={employee._id} >
+            <td>
+              <Image
+                src={employee.photo}
+                alt="My Image"
+                width={100}
+                height={100}
+              />
+            </td>
+            <td>{employee.firstName}</td>
+            <td>{employee.lastName}</td>
+            <td>{employee.email}</td>
+            <td>{employee.phone}</td>
+            <td>{employee.gender}</td>
             <td>
               <ActionButton
-                onClick={() => router.push("/employee/edit/:id")}
+                onClick={() => router.push(`/employee/edit/${employee._id}`)}
                 icon={<FaUserEdit />}
                 color={"success"}
               />
               <ActionButton
-                onClick={() => router.push("/employee/delete/:id")}
+                // onClick={() => router.push("/employee/delete/:id")}
+                onClick={() => router.push(`/employee/delete/${employee._id}`)}
                 icon={<AiFillDelete />}
                 color={"danger"}
               />
             </td>
           </tr>
-        </tbody>
+        ))}
+      </tbody>
     </>
   );
 };
