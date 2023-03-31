@@ -1,12 +1,9 @@
 import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
 import { IACard } from "@/components/organisms/View/CardView/CardViewInterface";
-import Image from "next/image";
 import router, { useRouter } from "next/router";
-import { Table } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-
 
 const TableEmployee = ({ employees, onClickDelete }: IACard) => {
   const dispatch = useDispatch();
@@ -19,15 +16,13 @@ const TableEmployee = ({ employees, onClickDelete }: IACard) => {
 
   return (
     <>
-      <tbody >
+      <tbody>
         {employees.map((employee) => (
-          <tr key={employee._id} >
+          <tr key={employee._id}>
             <td>
-              <Image
+              <img
                 src={employee.photo}
                 alt="My Image"
-                width={100}
-                height={100}
               />
             </td>
             <td>{employee.firstName}</td>
