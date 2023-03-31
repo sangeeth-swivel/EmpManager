@@ -8,7 +8,6 @@ const addEmployeeService = (employees: IEmployee) => {
 
 // Get All Employees Service
 const getAllEmployeesService = () => {
-  console.log("get employee api connection");
   return axiosClient.get("/employee/list");
 };
 

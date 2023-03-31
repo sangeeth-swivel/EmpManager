@@ -126,7 +126,6 @@ export const employeeSlice = createSlice({
       //get all employee
       .addCase(getAllEmployees.fulfilled, (state, action) => {
         state.employees = state.employees.concat(action.payload);
-        console.log(state);
         state.statusFetching = "success";
         state.fetchEmployeeMessage = "fetch employee successfully!";
       })
