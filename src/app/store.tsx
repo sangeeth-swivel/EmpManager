@@ -17,21 +17,7 @@ import {
 
 import { IEmployee } from "@/interfaces";
 
-interface State {
-  delEmp: any;
-  employees: IEmployee[];
-  employee: IEmployee | null;
-  statusFetching: string;
-  statusDeleting: string;
-  statusUpdating: string;
-  statusAdding: string;
-  addEmployeeMessage: string;
-  updateEmployeeMessage: string;
-  fetchEmployeeMessage: string;
-  error: string;
-}
-
-const initialState: State = {
+const initialState = {
   employees: [],
   employee: null,
   statusFetching: "idle",
