@@ -11,7 +11,7 @@ const HomePage: NextPage = () => {
   if (statusFetching === "failed") {
     return <Alert variant="danger">{fetchEmployeeMessage}</Alert>;
   } else if (statusFetching === "success") {
-    <Alert variant="success">{fetchEmployeeMessage}</Alert>
+    <Alert variant="success">{fetchEmployeeMessage}</Alert>;
     return <ListLayout data={content.employees} />;
   } else {
     return <></>;

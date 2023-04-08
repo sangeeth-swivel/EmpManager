@@ -7,7 +7,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
-const TableEmployee = ({ employees, onClickDelete }: IACard) => {
+const TableEmployee = ({ employees, onClickDelete, onClickEdit }: IACard) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
@@ -18,9 +18,9 @@ const TableEmployee = ({ employees, onClickDelete }: IACard) => {
 
   return (
     <>
-      <tbody>
+      <tbody >
         {employees.map((employee) => (
-          <tr key={employee._id}>
+          <tr key={employee._id} className="align-middle">
             <td>
               <img src={employee.photo} alt="My Image" />
             </td>
@@ -43,7 +43,7 @@ const TableEmployee = ({ employees, onClickDelete }: IACard) => {
             </td>
             <td>
               <ActionButton
-                onClick={() => router.push(`/employee/edit/${employee._id}`)}
+                onClick={onClickEdit}
                 icon={<FaUserEdit />}
                 color={"success"}
               />

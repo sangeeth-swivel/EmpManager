@@ -6,9 +6,7 @@ const SwitchButton = ({ icon, onClick }: IconButton) => {
   return (
     <>
       <Button
-        className="rounded-circle "
         onClick={onClick}
-        variant="primary"
         style={{ backgroundColor: "#6100ed" }}
       >
         {icon}

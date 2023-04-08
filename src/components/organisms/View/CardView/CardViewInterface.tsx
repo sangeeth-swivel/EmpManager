@@ -2,6 +2,6 @@ import { IEmployee } from "@/interfaces";
 
 export interface IACard {
   employees: IEmployee[];
-  // onClickEdit: () => void;
+  onClickEdit: () => void;
   onClickDelete: () => void;
 }

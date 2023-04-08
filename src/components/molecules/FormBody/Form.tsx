@@ -77,7 +77,7 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                 <Form onSubmit={formik.handleSubmit}>
                   {editForm ? (
                     <Form.Group className="mb-3" controlId="empId">
-                      <Form.Control
+                      {/* <Form.Control
                         required
                         id="firstName"
                         name="firstName"
@@ -92,7 +92,7 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                               formik.errors.firstName}
                           </div>
                         ) : null}
-                      </Form.Control>
+                      </Form.Control> */}
                     </Form.Group>
                   ) : (
                     <></>
@@ -160,8 +160,8 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                       onChange={formik.handleChange}
                     />
                     {formik.touched.phone && formik.errors.phone ? (
-                      <div className="text-danger">
-                        {formik.touched.phone && formik.errors.phone}
+                      <div className="text-danger">{formik.touched.phone}
+                        {formik.touched.phone && formik.errors.phone}}
                       </div>
                     ) : null}
                   </Form.Group>

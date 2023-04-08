@@ -17,11 +17,11 @@ const App = ({ Component, pageProps }: AppProps) => {
         crossOrigin="anonymous"
       />
       <NavBar />
-      <Container className="py-2">
-        <ThemeProvider >
+      <ThemeProvider dir="rtl">
+        <Container className="py-2">
           <Component {...pageProps} />
-        </ThemeProvider>
-      </Container>
+        </Container>
+      </ThemeProvider>
     </>
   );
 };

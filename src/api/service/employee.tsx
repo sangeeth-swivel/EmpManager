@@ -13,17 +13,17 @@ const getAllEmployeesService = () => {
 
 // Get Employee by Id Service
 const getEmployeeByIdService = (id?: string) => {
-  return axiosClient.get(`/employee/${id}`);
+  return axiosClient.get(`/employee/getEmployee/${id}`);
 };
 
 // Update Employee Service
 const updateEmployeeService = (employee: IEmployee) => {
-  return axiosClient.post("/employee/edit", JSON.stringify(employee));
+  return axiosClient.post("/employee/update", JSON.stringify(employee));
 };
 
 // Delete Employee Service
 const deleteEmployeeService = (id: string) => {
-  return axiosClient.get(`/employee/delete/${id}`);
+  return axiosClient.delete(`/employee/deleteEmployee/${id}`);
 };
 
 export {

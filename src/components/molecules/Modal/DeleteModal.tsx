@@ -1,4 +1,4 @@
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import { IDeleteModal } from "./DeleteModalInterface";
 import ModalAlert from "../../atoms/ModalAlert/ModalAlert";
 

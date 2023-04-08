@@ -2,7 +2,7 @@ import { selectEmployee, deleteEmployee } from "@/app/store";
 import CardView from "@/components/organisms/View/CardView/CardView";
 import { ILView } from "@/components/organisms/View/ListViewInterface";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteModal } from "../Modal/DeleteModal";
@@ -18,6 +18,7 @@ const tableHeader = [
   "Actions",
 ];
 
+
 const ViewList = ({ data, gridView }: ILView) => {
   const router = useRouter();
   const dispatch: any = useDispatch();
@@ -29,7 +30,7 @@ const ViewList = ({ data, gridView }: ILView) => {
     dispatch(deleteEmployee(employee._id));
     setModalOpen(false);
   };
-
+  
   return (
     <>
       <DeleteModal
@@ -38,6 +39,7 @@ const ViewList = ({ data, gridView }: ILView) => {
         onClickClose={() => setModalOpen(false)}
         onClickDelete={onClickDeleteEmployee}
       />
+      
       <Row className="py-2">
         {gridView ? (
           <Row>
@@ -45,7 +47,7 @@ const ViewList = ({ data, gridView }: ILView) => {
               <CardView
                 employees={[data]}
                 onClickDelete={() => setModalOpen(true)}
-                // onClickEdit={() => router.push(`employee/edit/${data._id}`)}
+                onClickEdit={() => router.push(`edit/${data._id}`)}
               />
             ))}
           </Row>
@@ -63,6 +65,7 @@ const ViewList = ({ data, gridView }: ILView) => {
                 <TableEmployee
                   employees={[data]}
                   onClickDelete={() => setModalOpen(true)}
+                  onClickEdit={() => router.push(`employee/edit/${data._id}`)}
                 />
               ))}
             </Table>

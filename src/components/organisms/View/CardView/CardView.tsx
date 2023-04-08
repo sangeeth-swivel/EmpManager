@@ -1,16 +1,13 @@
 import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
 import { IEmployee } from "@/interfaces";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setDeleteUserWithBtn } from "../../Shared/setDeleteUser";
 import { IACard } from "./CardViewInterface";
 
-function CardView({ employees, onClickDelete }: IACard) {
-  const router = useRouter();
+function CardView({ employees, onClickDelete , onClickEdit}: IACard) {
   const dispatch: any = useDispatch();
 
   const onClickDeleteBtn = (employee: IEmployee) => {
@@ -40,18 +37,16 @@ function CardView({ employees, onClickDelete }: IACard) {
                 </h6>
               </Card.Text>
               <Row>
-                <Col xs={12} md={6}></Col>
-                <Col xs={12} md={6}>
+                <Col/>
+                <Col md={{ span: 6, offset: 2 }}>
                   <ActionButton
-                    onClick={() =>
-                      router.push(`/employee/edit/${employee._id}`)
-                    }
+                    onClick={onClickEdit}
                     icon={<FaUserEdit />}
-                    color={"success"}
+                    color={"outline-success"}
                   />
                   <ActionButton
                     icon={<AiFillDelete />}
-                    color={"danger"}
+                    color={"outline-danger"}
                     onClick={() => onClickDeleteBtn(employee)}
                   />
                 </Col>

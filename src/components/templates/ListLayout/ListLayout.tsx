@@ -11,26 +11,25 @@ import ViewList from "@/components/molecules/View/ViewList";
 function ListLayout({ data }: IListLayoutInterface) {
   const router = useRouter();
   const [gridView, setGridView] = useState(true);
+
   return (
-    <>
-      <Container className="py-2">
-        <Row className="py-2">
-          <Col />
-          <Col xs="auto" className="ml-auto">
-            <SwitchButton
-              icon={gridView ? <IoReorderThree /> : <BsFillGrid3X3GapFill />}
-              onClick={() => setGridView(!gridView)}
-              color={""}
-            />
-            <NavButton
-              text="Add Employee"
-              onClick={() => router.push("/employee/add")}
-            />
-          </Col>
-        </Row>
-        <ViewList data={data} gridView={gridView} />
-      </Container>
-    </>
+    <Container className="py-2">
+      <Row className="py-2">
+        <Col />
+        <Col xs="auto" className="ml-auto">
+          <SwitchButton
+            icon={gridView ? <IoReorderThree /> : <BsFillGrid3X3GapFill />}
+            onClick={() => setGridView(!gridView)}
+            color={""}
+          />
+          <NavButton
+            text="Add Employee"
+            onClick={() => router.push("/employee/add")}
+          />
+        </Col>
+      </Row>
+      <ViewList data={data} gridView={gridView} />
+    </Container>
   );
 }
 export default ListLayout;

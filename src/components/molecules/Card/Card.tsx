@@ -30,9 +30,9 @@ const CardView = ({ employees, onClickDelete }: IACard) => {
             <Card.Text>{employee.email}</Card.Text>
             <Card.Text>{employee.phone}</Card.Text>
             <Card.Text>{employee.gender}</Card.Text>
-            <Row>
+            <Row className="justify-content-md-right">
               <Col xs={12} md={6}></Col>
-              <Col xs={12} md={6}>
+              <Col md={{ span: 3, offset: 3 }}>
                 <ActionButton
                   onClick={() => router.push(`/employee/edit/${employee._id}`)}
                   icon={<FaUserEdit />}
