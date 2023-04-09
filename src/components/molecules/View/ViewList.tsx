@@ -3,7 +3,7 @@ import CardView from "@/components/organisms/View/CardView/CardView";
 import { ILView } from "@/components/organisms/View/ListViewInterface";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { Row, Table } from "react-bootstrap";
+import { Container, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { DeleteModal } from "../Modal/DeleteModal";
 import TableEmployee from "../Table/Table";
@@ -18,7 +18,6 @@ const tableHeader = [
   "Actions",
 ];
 
-
 const ViewList = ({ data, gridView }: ILView) => {
   const router = useRouter();
   const dispatch: any = useDispatch();
@@ -27,6 +26,7 @@ const ViewList = ({ data, gridView }: ILView) => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const onClickDeleteEmployee = () => {
+    console.log(employee)
     dispatch(deleteEmployee(employee._id));
     setModalOpen(false);
   };
@@ -40,9 +40,9 @@ const ViewList = ({ data, gridView }: ILView) => {
         onClickDelete={onClickDeleteEmployee}
       />
       
-      <Row className="py-2">
+      <Container fluid>
         {gridView ? (
-          <Row>
+          <Row xs="auto" className="container-fluid">
             {data.map((data) => (
               <CardView
                 employees={[data]}
@@ -53,7 +53,7 @@ const ViewList = ({ data, gridView }: ILView) => {
           </Row>
         ) : (
           <Row>
-            <Table striped bordered hover size="sm" responsive="md">
+            <Table striped bordered hover size="sm" responsive="md" className="text-center">
               <thead>
                 <tr>
                   {tableHeader.map((header) => (
@@ -65,14 +65,14 @@ const ViewList = ({ data, gridView }: ILView) => {
                 <TableEmployee
                   employees={[data]}
                   onClickDelete={() => setModalOpen(true)}
-                  onClickEdit={() => router.push(`employee/edit/${data._id}`)}
+                  onClickEdit={() => router.push(`edit/${data._id}`)}
                 />
               ))}
             </Table>
           </Row>
           //
         )}
-      </Row>
+      </Container>
     </>
   );
 };

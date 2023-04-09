@@ -31,7 +31,6 @@ const initialState = {
   fetchAllEmployeeMessage: "",
   fetchEmployeeMessage: "",
   error: "",
-  // delEmp: null,
 };
 
 // createAsyncThunk function to fetch the employee list
@@ -128,15 +127,14 @@ export const employeeSlice = createSlice({
 
   //Hydrate state with wrapper
   extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action: any) => {
+      console.log("HYDRATE", state, action.payload);
+      return {
+        ...state,
+        ...action.payload.employee,
+      };
+    });
     builder
-      .addCase(HYDRATE, (state: any, action: any) => {
-        console.log("HYDRATE", state, action.payload);
-        return {
-          ...state,
-          ...action.payload.employee,
-        };
-      })
-
       //get all employee
       .addCase(getAllEmployees.fulfilled, (state, action) => {
         state.employees = state.employees.concat(action.payload);
@@ -225,7 +223,7 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 //wrapper
-export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
+export const wrapper = createWrapper<AppStore>(makeStore);
 
 // Selector
 export const selectEmployee = () => (state: AppState) =>

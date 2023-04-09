@@ -32,9 +32,14 @@ const ListView = ({ employees, onClickDelete }: IACard) => {
             ))} */}
           </tr>
         </thead>
-        <TableEmployee employees={employees} onClickDelete={() => setModalOpen(true)}/>
+        <TableEmployee
+          employees={employees}
+          onClickDelete={() => setModalOpen(true)}
+          onClickEdit={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
       </Table>
-      
     </>
   );
 };

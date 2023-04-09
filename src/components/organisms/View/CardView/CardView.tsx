@@ -1,13 +1,13 @@
 import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
 import { IEmployee } from "@/interfaces";
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Form, Row, Stack } from "react-bootstrap";
 import { AiFillDelete } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { setDeleteUserWithBtn } from "../../Shared/setDeleteUser";
 import { IACard } from "./CardViewInterface";
 
-function CardView({ employees, onClickDelete , onClickEdit}: IACard) {
+function CardView({ employees, onClickDelete, onClickEdit }: IACard) {
   const dispatch: any = useDispatch();
 
   const onClickDeleteBtn = (employee: IEmployee) => {
@@ -17,9 +17,9 @@ function CardView({ employees, onClickDelete , onClickEdit}: IACard) {
 
   return (
     <>
-      <Col className="py-2 px-2">
+      <Stack gap={2} className="py-2 px-3">
         {employees.map((employee) => (
-          <Card style={{ width: "18rem" }}>
+          <Card style={{ width: "17rem" }}>
             <Card.Img src={employee.photo} />
             <Card.Body>
               <Card.Text>
@@ -37,8 +37,8 @@ function CardView({ employees, onClickDelete , onClickEdit}: IACard) {
                 </h6>
               </Card.Text>
               <Row>
-                <Col/>
-                <Col md={{ span: 6, offset: 2 }}>
+                <Col />
+                <Col md={{ span: 6, offset: 1 }}>
                   <ActionButton
                     onClick={onClickEdit}
                     icon={<FaUserEdit />}
@@ -54,7 +54,7 @@ function CardView({ employees, onClickDelete , onClickEdit}: IACard) {
             </Card.Body>
           </Card>
         ))}
-      </Col>
+      </Stack>
     </>
   );
 }

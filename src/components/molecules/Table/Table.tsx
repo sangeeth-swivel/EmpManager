@@ -20,7 +20,7 @@ const TableEmployee = ({ employees, onClickDelete, onClickEdit }: IACard) => {
     <>
       <tbody >
         {employees.map((employee) => (
-          <tr key={employee._id} className="align-middle">
+          <tr key={employee._id} className="align-middle text-center">
             <td>
               <img src={employee.photo} alt="My Image" />
             </td>
@@ -45,11 +45,11 @@ const TableEmployee = ({ employees, onClickDelete, onClickEdit }: IACard) => {
               <ActionButton
                 onClick={onClickEdit}
                 icon={<FaUserEdit />}
-                color={"success"}
+                color={"outline-success"}
               />
               <ActionButton
                 icon={<AiFillDelete />}
-                color={"danger"}
+                color={"outline-danger"}
                 onClick={() => onClickDeleteBtn(employee)}
               />
             </td>

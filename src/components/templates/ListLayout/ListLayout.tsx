@@ -13,7 +13,7 @@ function ListLayout({ data }: IListLayoutInterface) {
   const [gridView, setGridView] = useState(true);
 
   return (
-    <Container className="py-2">
+    <div className="py-2">
       <Row className="py-2">
         <Col />
         <Col xs="auto" className="ml-auto">
@@ -29,7 +29,7 @@ function ListLayout({ data }: IListLayoutInterface) {
         </Col>
       </Row>
       <ViewList data={data} gridView={gridView} />
-    </Container>
+    </div>
   );
 }
 export default ListLayout;
