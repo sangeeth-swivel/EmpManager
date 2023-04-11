@@ -1,36 +1,23 @@
 import {
-  Action,
   configureStore,
   createAsyncThunk,
   createSlice,
   ThunkAction,
 } from "@reduxjs/toolkit";
-
+import { Action } from "redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 import {
   addEmployeeService,
   deleteEmployeeService,
   getAllEmployeesService,
+  getEmployeeByIdService,
   updateEmployeeService,
 } from "../api/service/employee";
 
 import { IEmployee } from "@/interfaces";
 
-interface State {
-  employees: IEmployee[];
-  employee: IEmployee | null;
-  statusFetching: string;
-  statusDeleting: string;
-  statusUpdating: string;
-  statusAdding: string;
-  addEmployeeMessage: string;
-  updateEmployeeMessage: string;
-  fetchEmployeeMessage: string;
-  error: string;
-}
-
-const initialState: State = {
+const initialState = {
   employees: [],
   employee: null,
   statusFetching: "idle",
@@ -39,29 +26,54 @@ const initialState: State = {
   statusAdding: "idle",
   addEmployeeMessage: "",
   updateEmployeeMessage: "",
+  deleteEmployeeMessage: "",
+  fetchAllEmployeeMessage: "",
   fetchEmployeeMessage: "",
   error: "",
 };
 
 // createAsyncThunk function to fetch the employee list
-export const getAllEmployees = createAsyncThunk("employees/fetch", async () => {
-  try {
-    const response = await getAllEmployeesService();
-    return response.data;
-  } catch (err) {
-    console.log(err);
+export const getAllEmployees = createAsyncThunk(
+  "employee/list",
+  async (_obj, { rejectWithValue }) => {
+    try {
+      const response = await getAllEmployeesService();
+      if (response.data.employees) {
+        return response.data.employees;
+      } else {
+        return rejectWithValue("Sorry Something went wrong!");
+      }
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
+    }
   }
-});
+);
+
+// createAsyncThunk function to fetch the employee by id
+export const fetchEmployeeById = createAsyncThunk(
+  "employee/EmpById",
+  async (id: string) => {
+    const res = await getEmployeeByIdService(id);
+    console.log("comming fetch");
+    return res.data.employee;
+  }
+);
 
 // createAsyncThunk function to add employee list
 export const addNewEmployee = createAsyncThunk(
   "employee/add",
-  async (employee: IEmployee) => {
+  async (employee: IEmployee, { rejectWithValue }) => {
     try {
       const res = await addEmployeeService(employee);
-      return res.data;
-    } catch (error) {
-      console.log(error);
+      if (res.data.message === "success") {
+        return res.data;
+      } else {
+        return rejectWithValue("error");
+      }
+    } catch (err) {
+      console.log(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -114,52 +126,63 @@ export const employeeSlice = createSlice({
 
   //Hydrate state with wrapper
   extraReducers: (builder) => {
+    builder.addCase(HYDRATE, (state, action: any) => {
+      // console.log("HYDRATE", state, action.payload);
+      return {
+        ...state,
+        ...action.payload.employee,
+      };
+    });
     builder
-      .addCase(HYDRATE, (state: any, action: any) => {
-        console.log("HYDRATE", state, action.payload);
-        return {
-          ...state,
-          ...action.payload.employee,
-        };
-      })
-
       //get all employee
       .addCase(getAllEmployees.fulfilled, (state, action) => {
         state.employees = state.employees.concat(action.payload);
         state.statusFetching = "success";
-        state.fetchEmployeeMessage = "fetch employee successfully!";
+        state.fetchAllEmployeeMessage = "fetch employee successfully!";
       })
       .addCase(getAllEmployees.pending, (state) => {
         state.statusFetching = "loading";
       })
       .addCase(getAllEmployees.rejected, (state) => {
         state.statusFetching = "failed";
-        state.fetchEmployeeMessage = "Sorry Something went wrong!";
+        state.fetchAllEmployeeMessage = "Sorry Something went wrong!";
+      })
+
+      //get employee byID
+      .addCase(fetchEmployeeById.fulfilled, (state, action) => {
+        state.employee = action.payload;
+        state.fetchEmployeeMessage = "success";
+      })
+      .addCase(fetchEmployeeById.pending, (state) => {
+        state.fetchEmployeeMessage = "pending";
+      })
+      .addCase(fetchEmployeeById.rejected, (state) => {
+        state.fetchEmployeeMessage = "failed";
       })
 
       //add employee
-      .addCase(addNewEmployee.fulfilled, (state, action) => {
+      .addCase(addNewEmployee.fulfilled, (state) => {
         state.statusAdding = "success";
         state.addEmployeeMessage = "New employee added successfully!";
       })
-      .addCase(addNewEmployee.pending, (state, action) => {
+      .addCase(addNewEmployee.pending, (state) => {
         state.statusAdding = "pending";
       })
-      .addCase(addNewEmployee.rejected, (state, action) => {
+      .addCase(addNewEmployee.rejected, (state) => {
         state.statusAdding = "failed";
         state.addEmployeeMessage =
           "Could not add employee! please try again later.";
       })
 
       //update employee
-      .addCase(updateEmployee.fulfilled, (state, action) => {
+      .addCase(updateEmployee.fulfilled, (state) => {
         state.statusUpdating = "success";
         state.updateEmployeeMessage = "Update Successfull";
       })
-      .addCase(updateEmployee.pending, (state, action) => {
+      .addCase(updateEmployee.pending, (state) => {
         state.statusUpdating = "loading";
       })
-      .addCase(updateEmployee.rejected, (state, action) => {
+      .addCase(updateEmployee.rejected, (state) => {
         state.statusUpdating = "failed";
         state.updateEmployeeMessage =
           "Could not update please try again later!";
@@ -167,28 +190,26 @@ export const employeeSlice = createSlice({
 
       //delete employee
       .addCase(deleteEmployee.fulfilled, (state, action) => {
+        state.employees = action.payload;
         state.statusDeleting = "success";
+        state.deleteEmployeeMessage = "Delete Successfull";
       })
-      .addCase(deleteEmployee.pending, (state, action) => {
+      .addCase(deleteEmployee.pending, (state) => {
         state.statusDeleting = "loading";
       })
-      .addCase(deleteEmployee.rejected, (state, action) => {
+      .addCase(deleteEmployee.rejected, (state) => {
         state.statusDeleting = "failed";
       });
   },
 });
 
-const makeStore = () =>
+export const makeStore = () =>
   configureStore({
     reducer: {
       [employeeSlice.name]: employeeSlice.reducer,
     },
     devTools: true,
   });
-
-// Selector
-export const selectEmployee = () => (state: AppState) =>
-  state?.[employeeSlice.name];
 
 export type AppStore = ReturnType<typeof makeStore>;
 
@@ -202,4 +223,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 //wrapper
-export const wrapper = createWrapper<AppStore>(makeStore, { debug: true });
+export const wrapper = createWrapper<AppStore>(makeStore);
+
+// Selector
+export const selectEmployee = () => (state: AppState) =>
+  state?.[employeeSlice.name];

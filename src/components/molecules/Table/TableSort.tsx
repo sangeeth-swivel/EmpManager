@@ -2,15 +2,12 @@ import ActionButton from "@/components/atoms/Button/IconButton/ActionButton";
 import { setDeleteUserWithBtn } from "@/components/organisms/Shared/setDeleteUser";
 import { IACard } from "@/components/organisms/View/CardView/CardViewInterface";
 import { IEmployee } from "@/interfaces";
-import router, { useRouter } from "next/router";
 import { AiFillDelete } from "react-icons/ai";
 import { FaUserEdit } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 
-const TableEmployee = ({ employees, onClickDelete, onClickEdit }: IACard) => {
+const SortableTableEmployee = ({ employees, onClickDelete, onClickEdit }: IACard) => {
   const dispatch = useDispatch();
-  const router = useRouter();
-
   const onClickDeleteBtn = (employee: IEmployee) => {
     setDeleteUserWithBtn(employee, dispatch);
     onClickDelete();
@@ -59,4 +56,4 @@ const TableEmployee = ({ employees, onClickDelete, onClickEdit }: IACard) => {
     </>
   );
 };
-export default TableEmployee;
+export default SortableTableEmployee;

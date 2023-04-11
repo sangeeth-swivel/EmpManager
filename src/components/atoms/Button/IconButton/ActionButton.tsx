@@ -7,7 +7,7 @@ const ActionButton = ({ color, icon, onClick }: IconButton) => {
       <Button
         onClick={onClick}
         variant={color}
-        className="rounded-circle mx-1"
+        className="mx-1 float-right"
       >
         {icon}
       </Button>

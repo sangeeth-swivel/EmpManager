@@ -75,28 +75,6 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
             <Card>
               <Card.Body>
                 <Form onSubmit={formik.handleSubmit}>
-                  {editForm ? (
-                    <Form.Group className="mb-3" controlId="empId">
-                      <Form.Control
-                        required
-                        id="firstName"
-                        name="firstName"
-                        autoComplete="id"
-                        value={formik.values._id}
-                        onChange={formik.handleChange}
-                        disabled
-                      >
-                        {formik.touched.firstName && formik.errors.firstName ? (
-                          <div className="text-danger">
-                            {formik.touched.firstName &&
-                              formik.errors.firstName}
-                          </div>
-                        ) : null}
-                      </Form.Control>
-                    </Form.Group>
-                  ) : (
-                    <></>
-                  )}
 
                   <Form.Group className="mb-3" controlId="firstName">
                     <Form.Label>First Name</Form.Label>
@@ -110,7 +88,7 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                     />
                     {formik.touched.firstName && formik.errors.firstName ? (
                       <div className="text-danger">
-                        {formik.touched.firstName && formik.errors.firstName}
+                        {formik.errors.firstName as string}
                       </div>
                     ) : null}
                   </Form.Group>
@@ -127,7 +105,7 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                     />
                     {formik.touched.lastName && formik.errors.lastName ? (
                       <div className="text-danger">
-                        {formik.touched.lastName && formik.errors.lastName}
+                        {formik.errors.lastName as string}
                       </div>
                     ) : null}
                   </Form.Group>
@@ -144,7 +122,7 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                     />
                     {formik.touched.email && formik.errors.email ? (
                       <div className="text-danger">
-                        {formik.touched.email && formik.errors.email}
+                        {formik.errors.email as string}
                       </div>
                     ) : null}
                   </Form.Group>
@@ -161,7 +139,7 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                     />
                     {formik.touched.phone && formik.errors.phone ? (
                       <div className="text-danger">
-                        {formik.touched.phone && formik.errors.phone}
+                        {formik.errors.phone as string}
                       </div>
                     ) : null}
                   </Form.Group>
@@ -174,8 +152,8 @@ const FormEmployee = ({ edit, text, employee }: IForm) => {
                       value={formik.values.gender}
                       onChange={formik.handleChange}
                     >
-                      <option value="Male">Male</option>
-                      <option value="Female">Female</option>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
                     </Form.Select>
                   </Form.Group>
 
