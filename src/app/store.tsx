@@ -29,7 +29,7 @@ const initialState = {
   deleteEmployeeMessage: "",
   fetchAllEmployeeMessage: "",
   fetchEmployeeMessage: "",
-  error: "",
+  error: ""
 };
 
 // createAsyncThunk function to fetch the employee list

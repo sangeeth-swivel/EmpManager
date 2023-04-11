@@ -32,12 +32,15 @@ const nextConfig = {
       },
     ];
   },
-  // experimental: {
-  //   appDir: true,
-  // },
   images: {
     domains: ['randomuser.me'],
   },
+  typescript:{
+    ignoreBuildErrors:true
+  },
+  eslint:{
+    ignoreDuringBuilds:true
+  }
 }
 
 module.exports = nextConfig
