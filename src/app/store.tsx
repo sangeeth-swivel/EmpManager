@@ -1,11 +1,10 @@
 import {
-  Action,
   configureStore,
   createAsyncThunk,
   createSlice,
   ThunkAction,
 } from "@reduxjs/toolkit";
-
+import { Action } from "redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 
 import {
@@ -53,7 +52,7 @@ export const getAllEmployees = createAsyncThunk(
 
 // createAsyncThunk function to fetch the employee by id
 export const fetchEmployeeById = createAsyncThunk(
-  "employee/getEmployee/fetchById",
+  "employee/EmpById",
   async (id: string) => {
     const res = await getEmployeeByIdService(id);
     console.log("comming fetch");
@@ -128,7 +127,7 @@ export const employeeSlice = createSlice({
   //Hydrate state with wrapper
   extraReducers: (builder) => {
     builder.addCase(HYDRATE, (state, action: any) => {
-      console.log("HYDRATE", state, action.payload);
+      // console.log("HYDRATE", state, action.payload);
       return {
         ...state,
         ...action.payload.employee,
@@ -149,6 +148,7 @@ export const employeeSlice = createSlice({
         state.fetchAllEmployeeMessage = "Sorry Something went wrong!";
       })
 
+      //get employee byID
       .addCase(fetchEmployeeById.fulfilled, (state, action) => {
         state.employee = action.payload;
         state.fetchEmployeeMessage = "success";

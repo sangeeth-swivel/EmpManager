@@ -1,12 +1,12 @@
 import { selectEmployee, deleteEmployee } from "@/app/store";
 import CardView from "@/components/organisms/View/CardView/CardView";
-import { ILView } from "@/components/organisms/View/ListViewInterface";
+import { ILView } from "@/components/organisms/View/View/ListViewInterface";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { Container, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { DeleteModal } from "../Modal/DeleteModal";
-import TableEmployee from "../Table/Table";
+import { DeleteModal } from "../../../molecules/Modal/DeleteModal";
+import TableEmployee from "../../../molecules/Table/Table";
 
 const tableHeader = [
   "Image",
@@ -42,7 +42,7 @@ const ViewList = ({ data, gridView }: ILView) => {
       
       <Container fluid>
         {gridView ? (
-          <Row xs="auto" className="container-fluid">
+          <Row xs="auto">
             {data.map((data) => (
               <CardView
                 employees={[data]}
