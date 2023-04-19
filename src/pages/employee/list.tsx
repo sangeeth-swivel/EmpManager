@@ -11,7 +11,6 @@ const HomePage: NextPage = () => {
   if (statusFetching === "failed") {
     return <Alert variant="danger">{fetchEmployeeMessage}</Alert>;
   } else if (statusFetching === "success") {
-    <Alert variant="success">{fetchEmployeeMessage}</Alert>;
     return <ListLayout data={content.employees} />;
   } else {
     return <></>;
@@ -20,7 +19,7 @@ const HomePage: NextPage = () => {
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) =>
-    async ({}) => {
+    async () => {
       try {
         await store.dispatch(getAllEmployees());
       } catch (err) {
